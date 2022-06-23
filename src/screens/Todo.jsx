@@ -5,7 +5,7 @@ import React  from 'react'
 import { useState } from 'react';
 import { CheckBox } from 'react-native-elements';
 
-const Todo = () => {
+const Todo = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
  const [data,setData]=useState([
     {
@@ -24,44 +24,28 @@ const Todo = () => {
       },
  ])
 
- const updateDate = ( done, index) => {
+ const [task,setTask]=useState("");
+
+ const updateData = ( index) => {
+  
     let placeHolderObject = data;
 
-    placeHolderObject[index].done = done;
-
+    placeHolderObject[index].done = !placeHolderObject[index].done;
+    
     setData(placeHolderObject)
+   
+
+   
 
  }
 
  function addData(task){
+
   let obj={title:task,done:false};
   let placeHolderObject = data;
   placeHolderObject.push(obj)
   setData(placeHolderObject)
  }
-
-//  <ScrollView>
-
-// {data.map((item,counter)=>(
-//     <View key={counter}>
-//        <CheckBox
-//        title=''
-//     disabled={false}
-//    checked={item.done}
-   
-// //    onPress={()=>setData(...)}
-//     // onPress={() => setToggleCheckBox(!toggleCheckBox)}
-//   />
-// <Text>{item.title}</Text>
-
-// <View>
-
-// </View>
-//     </View>
-// ))}
-
-//   </ScrollView>
-      
 
  const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (
@@ -78,12 +62,12 @@ const Todo = () => {
         <View  style={{height:"45%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"black",alignItems:"center",justifyContent:"center",}}>
         <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+        onChangeText={newTask=>{setTask(newTask);}}
+        value={task}
         placeholder="Enter new task"
         keyboardType="email-address"
       />
-  <TouchableOpacity   style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+  <TouchableOpacity onPress={()=>{addData(task);setModalVisible(false)}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
      ,marginTop:20 ,borderRadius:4,width:"60%"}}>
         <Text style={{color:"white"}}>Register</Text>
       </TouchableOpacity>
@@ -106,6 +90,12 @@ const Todo = () => {
     <Text style={{marginLeft:20,fontWeight:"bold", fontSize:20,marginBottom:15,marginTop:15}}>
       Task List
     </Text>
+    <View style={{alignItems:"center",justifyContent:"center"}}>
+<TouchableOpacity onPress={()=>{setModalVisible(true)}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+     ,marginTop:20 ,borderRadius:4,width:"60%"}}>
+        <Text style={{color:"white"}}>New Task</Text>
+      </TouchableOpacity>
+</View>
     <ScrollView  >
 
 {data.map((item,counter)=>(
@@ -115,7 +105,7 @@ const Todo = () => {
    disabled={false}
   checked={item.done}
   
- //  onPress={()=>setData(...)}
+  onPress={()=>updateData(counter)}
  //   onPress={() => setToggleCheckBox(!toggleCheckBox)}
  />
 <Text style={{marginTop:18}}>{item.title}</Text>
@@ -130,12 +120,7 @@ const Todo = () => {
 
 
     </View>
-<View style={{alignItems:"center",justifyContent:"center"}}>
-<TouchableOpacity onPress={()=>{setModalVisible(true)}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
-     ,marginTop:20 ,borderRadius:4,width:"60%"}}>
-        <Text style={{color:"white"}}>New Task</Text>
-      </TouchableOpacity>
-</View>
+
    
    </View>
    
