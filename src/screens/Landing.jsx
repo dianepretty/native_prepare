@@ -1,19 +1,40 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
+import { StyleSheet, Text,Image, View,TextInput,TouchableOpacity,StatusBar,ImageBackground, } from 'react-native'
 import React, { useState } from 'react'
+import shape from "../images/shape.png"
 
 
 const Landing = ({navigation}) => {
   return (
-    <View style={styles.container}>
-     
-    
-        <Text style={{color:'white'}}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, sed! Ex animi accusantium, vitae aliquam odio fugiat provident. Perferendis tempore sint similique distinctio quisquam dignissimos, ratione deserunt perspiciatis itaque, suscipit voluptas labore enim? Ut deserunt eaque adipisci tempora et. Libero ducimus quisquam praesentium! Officiis, in. Aliquid aspernatur nemo ab magni iure. Quae quaerat atque eveniet consequuntur amet totam debitis libero quos magnam non assumenda, vero illum exercitationem accusamus ducimus perferendis facilis quasi praesentium, fugit necessitatibus placeat iure! Nam modi veniam at quibusdam neque dolor ab, repudiandae exercitationem. Dolor fugit et modi, explicabo quasi numquam culpa. Perferendis maiores mollitia tempore nam.
-        </Text>
+    <View style={styles.container} >
+<StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
 
-        <TouchableOpacity onPress={()=>{navigation.navigate("Login")}}>
-          <Text>Go to login</Text>
-        </TouchableOpacity>
+    <View>
+    <Image source={require('../images/shape.png')} style={{width:270,margin:0}} resizeMode="cover">
+
+</Image>
+      </View>
+
+      <View style={{marginTop:20}}>
+
+      <View style={{alignItems:"center",marginTop:100}}>
+<Image source={require('../images/mobile.png')}  ></Image>
+</View>
+
+     <View>
+      <Text style={{fontWeight:"bold",fontSize:15, textAlign:"center",marginTop:80}}>Get everything done with Todo</Text>
+      <Text style={{marginTop:15,marginLeft:40,marginRight:40,textAlign:"center"}}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis donec scelerisque egestas consectetur. Elit integer at eleifend purus lorem. Posuere duis tincidunt velit tristique dignissim viverra aenean.
+      </Text>
+
+      <TouchableOpacity onPress={()=>navigation.navigate("Login")} style={{backgroundColor:"#358B9B",padding:15,alignItems:"center",marginTop:40
+      ,marginLeft:40,marginRight:40,borderRadius:4}}>
+        <Text style={{color:"white"}}>Get started</Text>
+      </TouchableOpacity>
+     </View>
+        </View> 
+
+
+    
     
     </View>
   )
@@ -23,9 +44,9 @@ export default Landing
 
 const styles = StyleSheet.create({
 container:{
-    flex:1,
-    backgroundColor:'red',
-    alignItems:'center',
-    justifyContent:'center'
-}
+  
+ backgroundColor:"#EEEEEE",
+ height:"100%"
+},
+
 })

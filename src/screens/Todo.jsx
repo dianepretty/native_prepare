@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,ScrollView } from 'react-native'
+import { TextInput,TouchableOpacity , Modal,StyleSheet, Text, View,ScrollView,StatusBar,Image } from 'react-native'
 
 import React  from 'react'
 
@@ -6,52 +6,138 @@ import { useState } from 'react';
 import { CheckBox } from 'react-native-elements';
 
 const Todo = () => {
+  const [modalVisible, setModalVisible] = useState(false);
  const [data,setData]=useState([
     {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      
         title: "First Item",
         done:false
       },
       {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+ 
         title: "Second Item",
         done:true
       },
       {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
         title: "Third Item",
         done:false
       },
  ])
 
+ const updateDate = ( done, index) => {
+    let placeHolderObject = data;
+
+    placeHolderObject[index].done = done;
+
+    setData(placeHolderObject)
+
+ }
+
+ function addData(task){
+  let obj={title:task,done:false};
+  let placeHolderObject = data;
+  placeHolderObject.push(obj)
+  setData(placeHolderObject)
+ }
+
+//  <ScrollView>
+
+// {data.map((item,counter)=>(
+//     <View key={counter}>
+//        <CheckBox
+//        title=''
+//     disabled={false}
+//    checked={item.done}
+   
+// //    onPress={()=>setData(...)}
+//     // onPress={() => setToggleCheckBox(!toggleCheckBox)}
+//   />
+// <Text>{item.title}</Text>
+
+// <View>
+
+// </View>
+//     </View>
+// ))}
+
+//   </ScrollView>
+      
+
  const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (
-    <View>
-      <Text>Welcome to Todo List</Text>
-  
-  <ScrollView>
+    <View style={styles.container}>
+      <Modal
+     
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View  style={{height:"45%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"black",alignItems:"center",justifyContent:"center",}}>
+        <TextInput
+        style={styles.input}
+        // onChangeText={onChangeNumber}
+        // value={number}
+        placeholder="Enter new task"
+        keyboardType="email-address"
+      />
+  <TouchableOpacity   style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+     ,marginTop:20 ,borderRadius:4,width:"60%"}}>
+        <Text style={{color:"white"}}>Register</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={()=>{setModalVisible(false)}} style={{justifyContent:"center",alignItems:"center"}}>
+        <Text style={{color:"white",marginTop:30}}>Cancel</Text>
+      </TouchableOpacity>
+        </View>
+      </Modal>
+      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
+      <View>
+    <Image source={require('../images/shape.png')} style={{width:200,margin:0}} resizeMode="cover"></Image>
+  </View>
+    
+
+   <View>
+   
+
+    <View style={styles.box} >
+    <Text style={{marginLeft:20,fontWeight:"bold", fontSize:20,marginBottom:15,marginTop:15}}>
+      Task List
+    </Text>
+    <ScrollView  >
 
 {data.map((item,counter)=>(
-    <View key={counter}>
-       <CheckBox
-       title=''
-    disabled={false}
-   checked={item.done}
-   
-//    onPress={()=>setData(...)}
-    // onPress={() => setToggleCheckBox(!toggleCheckBox)}
-  />
-<Text>{item.title}</Text>
+   <View style={{flexDirection:"row"}} key={counter}>
+      <CheckBox
+      title=''
+   disabled={false}
+  checked={item.done}
+  
+ //  onPress={()=>setData(...)}
+ //   onPress={() => setToggleCheckBox(!toggleCheckBox)}
+ />
+<Text style={{marginTop:18}}>{item.title}</Text>
 
 <View>
 
 </View>
-    </View>
+   </View>
 ))}
 
-  </ScrollView>
-      
+ </ScrollView>
+
+
+    </View>
+<View style={{alignItems:"center",justifyContent:"center"}}>
+<TouchableOpacity onPress={()=>{setModalVisible(true)}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+     ,marginTop:20 ,borderRadius:4,width:"60%"}}>
+        <Text style={{color:"white"}}>New Task</Text>
+      </TouchableOpacity>
+</View>
    
+   </View>
    
      
 
@@ -61,4 +147,36 @@ const Todo = () => {
 
 export default Todo
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+    container:{
+      
+     backgroundColor:"#EEEEEE",
+     height:"100%"
+    },
+    box:{
+      marginLeft:30,
+      marginRight:30,
+      backgroundColor:"",
+   shadowColor:"black",
+   
+  shadowOpacity:1,
+  shadowRadius:10,
+  paddingTop:20,
+  paddingBottom:40
+  
+    }
+    ,
+    input: {
+      height: 50,
+      // marginTop:20,
+      // marginLeft:40,
+      // marginRight:40,
+     width:"80%",
+      padding: 10,
+      paddingLeft:20,
+      paddingRight:20,
+      borderRadius:100,
+      backgroundColor:"white"
+    },
+})

@@ -10,24 +10,30 @@ import { Provider } from 'react-redux';
 import { Store } from './src/redux/state';
 import AuthNavigator from './src/navigation/Authentication';
 import { NavigationContainer } from '@react-navigation/native';
-import { UserProvider } from './MyContext';
+import {UserContext } from './MyContext';
+import StackNavigator from './src/navigation/StackNavigator';
+// import { useSelector, useDispatch } from 'react-redux'
+// import { setAuth } from "./src/redux/actions"
 
 export default function App() {
   
-  const [allow,setAllow]=useState(false);
-  // const {auth,setAuth}=useContext(Context);
-  return (
-<UserProvider>
-   <NavigationContainer>
-    {/* <Provider store={Store}> */}
 
-     
-<AuthNavigator></AuthNavigator>
+  const [auth,setAuth]=useState(false);
+  
+
+  return (
+<UserContext.Provider value={{auth,setAuth}}>
+   <NavigationContainer>
+    <Provider store={Store}>
+{auth?<StackNavigator></StackNavigator>:<AuthNavigator></AuthNavigator>}
+{/* <StackNavigator></StackNavigator>: */}
+
+
       
 
-      {/* </Provider> */}
+      </Provider>
       </NavigationContainer>
-      </UserProvider>
+      </UserContext.Provider>
   );
 }
 
