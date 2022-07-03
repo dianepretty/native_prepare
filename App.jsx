@@ -11,6 +11,7 @@ import MainContainer from './src/screens/MainContainer';
 import store from './src/store'
 import { Provider } from 'react-redux'
 import { useSelector} from 'react-redux'
+import { useFonts } from 'expo-font';
 export default function App() {
 
 
