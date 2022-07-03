@@ -1,0 +1,4 @@
+set local storage.
+Authentication and Authorization 
+bottom navigation
+loading fonts
