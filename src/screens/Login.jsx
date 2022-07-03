@@ -1,19 +1,45 @@
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image } from 'react-native'
 import React, { useState } from 'react'
 import { useContext } from 'react';
-// import { UserContext } from '../../MyContext';
-import { useSelector, useDispatch } from 'react-redux'
-import { setName,setAge } from '../redux/actions'
-import { UserContext } from '../../MyContext';
 
+import { useSelector, useDispatch } from 'react-redux'
+import  {setAuth} from "../features/counterSlice"
+
+import { UserContext } from '../../MyContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
-    const{auth,setAuth}=useContext(UserContext); 
+let storeData = async () => {
+    try {
+      await AsyncStorage.setItem(
+      'name','pretty'
+      );
+    } catch (error) {
+      // Error saving data
+    }
+    
+  };
+  let retrieveData = async () => {
+    storeData();
+   
+    try {
+      const value = await AsyncStorage.getItem('name');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
     const [email,setEmail]=useState("");
     const [pass,setPass]=useState("");
-    function change(){
-      setAuth(true);
-    }
+const auth=useSelector(state=>state.counter.authorized);
+const dispatch = useDispatch()
+    // function change(){
+    //   setAuth(true);
+    // }
    
 
   
@@ -58,7 +84,7 @@ const Login = ({navigation}) => {
 </View>
 
 
-<TouchableOpacity onPress={()=>change()}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+<TouchableOpacity onPress={()=>{dispatch(setAuth())}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
       ,marginLeft:40,marginRight:40,borderRadius:4}}>
         <Text style={{color:"white"}}>Login</Text>
       </TouchableOpacity>
