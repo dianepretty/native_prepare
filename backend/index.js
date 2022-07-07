@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 
 //files
 require("./db/db");
+const user = require("./routes/UserRoutes");
 
 //swagger setup
 const swaggerDefinition = {
@@ -44,6 +45,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+//routing
+app.use("/user", user)
 
 
 app.listen(port, () => {
