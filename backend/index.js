@@ -6,6 +6,8 @@ const cors = require('cors')
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
+//files
+require("./db/db");
 
 //swagger setup
 const swaggerDefinition = {
