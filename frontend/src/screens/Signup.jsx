@@ -1,14 +1,46 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image } from 'react-native'
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image,Modal } from 'react-native'
 import React, { useState } from 'react'
+import axios from 'axios';
+
 
 const Signup = ({navigation}) => {
+
     const [email,setEmail]=useState("");
     const [pass,setPass]=useState("");
-  function log(){
-    console.log(email,pass);
-  }
+    const [name,setName]=useState("");
+    const [modalVisible, setModalVisible] = useState(false);
+const register=async()=>{
+  console.log("in register")
+ await axios.post("http://10.0.2.2:4300/user/register",{
+    email:email,
+    name:name,
+    password:pass
+  })
+  .then(res=>{
+ if(res.data.message=="created"){
+
+ }
+  }).catch(err=>{
+    setModalVisible(true)
+
+  })
+}
   return (
     <View>
+      <Modal
+     
+     animationType="fade"
+     transparent={true}
+     visible={modalVisible}
+     onRequestClose={() => {
+       setModalVisible(!modalVisible);
+     }}
+   >
+     <View  style={{height:"25%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"white",alignItems:"center",justifyContent:"center",}}>
+     <Text>Please check your inputs</Text>
+     </View>
+   </Modal>
+
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
       <View>
     <Image source={require('../images/shape.png')} style={{width:270,margin:0}} resizeMode="cover">
@@ -17,17 +49,18 @@ const Signup = ({navigation}) => {
       </View>
       <Text style={{fontWeight:"bold",fontSize:15, textAlign:"center",marginTop:50}}>Welcome to Board</Text>
       <Text style={{marginTop:15,marginLeft:40,marginRight:40,textAlign:"center"}}>
-      Let’s hope you finish your tasks 
+      Signup to continue
       </Text>
       
 
 
 <View style={{marginTop:40}}>
   <View>
+   
   <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+         onChangeText={newName=>{setName(newName); }}
+         value={name}
         placeholder="Enter name"
         keyboardType="default"
       />
@@ -35,8 +68,8 @@ const Signup = ({navigation}) => {
   <View>
   <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+        onChangeText={newEmail=>setEmail(newEmail)}
+        value={email}
         placeholder="Enter email"
         keyboardType="email-address"
       />
@@ -44,29 +77,21 @@ const Signup = ({navigation}) => {
   <View>
   <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+        onChangeText={newPass=>setPass(newPass)}
+        value={pass}
         placeholder="Enter password"
        
       />
   </View>
-  <View>
-  <TextInput
-        style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
-        placeholder="Confirm Password"
-       
-      />
-  </View>
+
 
 
 </View>
 
 
-<TouchableOpacity onPress={()=>navigation.navigate("Login")} style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+<TouchableOpacity onPress={()=>register()} style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
      ,marginTop:40 ,marginLeft:40,marginRight:40,borderRadius:4}}>
-        <Text style={{color:"white"}}>Login</Text>
+        <Text style={{color:"white"}}>Register</Text>
       </TouchableOpacity>
 
       <View style={{alignItems:"center",marginTop:40}}>
@@ -87,9 +112,12 @@ const Signup = ({navigation}) => {
 export default Signup;
 
 const styles = StyleSheet.create({
+  text:{
+    marginLeft:47,
+  },
   input: {
     height: 50,
-    marginTop:20,
+    marginTop:10,
     marginLeft:40,
     marginRight:40,
    

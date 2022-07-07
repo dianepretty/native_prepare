@@ -9,6 +9,8 @@ const swaggerUi = require('swagger-ui-express');
 //files
 require("./db/db");
 const user = require("./routes/UserRoutes");
+const candidate = require("./routes/CandidateRoutes");
+const position = require("./routes/PositionsRoutes");
 
 //swagger setup
 const swaggerDefinition = {
@@ -49,6 +51,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //routing
 app.use("/user", user)
+app.use("/candidate", candidate);
+app.use("/position", position);
 
 
 app.listen(port, () => {

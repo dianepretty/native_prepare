@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image } from 'react-native'
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image ,Modal} from 'react-native'
 import React, { useState } from 'react'
 import { useContext } from 'react';
+import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux'
 import  {setAuth} from "../features/counterSlice"
@@ -41,10 +42,29 @@ const dispatch = useDispatch()
     // }
    
 
+
+    const [modalVisible, setModalVisible] = useState(false);
+
   
  
   return (
     <View>
+
+<Modal
+     
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View  style={{height:"45%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"black",alignItems:"center",justifyContent:"center",}}>
+        <Text>Please check your inputs</Text>
+        </View>
+      </Modal>
+
+
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
       <View>
     <Image source={require('../images/shape.png')} style={{width:270,margin:0}} resizeMode="cover">
