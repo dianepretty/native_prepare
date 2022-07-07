@@ -1,9 +1,6 @@
 
 
 import { useContext, useState } from 'react';
-
-// import { Store } from './src/redux/state';
-
 import Main from './src/Main';
 import {UserContext } from './MyContext';
 

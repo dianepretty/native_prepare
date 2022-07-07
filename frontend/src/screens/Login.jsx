@@ -2,10 +2,8 @@ import { StyleSheet, Text, View,TextInput,TouchableOpacity,StatusBar,Image ,Moda
 import React, { useState } from 'react'
 import { useContext } from 'react';
 import axios from 'axios';
-
 import { useSelector, useDispatch } from 'react-redux'
 import  {setAuth} from "../features/counterSlice"
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
@@ -33,17 +31,23 @@ let storeData = async () => {
     }
   };
 
-    const [email,setEmail]=useState("");
-    const [pass,setPass]=useState("");
+const [email,setEmail]=useState("");
+const [pass,setPass]=useState("");
 const auth=useSelector(state=>state.counter.authorized);
 const dispatch = useDispatch()
-    // function change(){
-    //   setAuth(true);
-    // }
-   
+const [modalVisible, setModalVisible] = useState(false);
 
+const login=()=>{
+  axios.post("http://10.0.2.2:4300/user/login",{
+    email:email,
+    password:pass
+  }).then((res)=>{
+   dispatch(setAuth(true));
+  }).catch(err=>{
+    setModalVisible(true);
+  })
 
-    const [modalVisible, setModalVisible] = useState(false);
+}
 
   
  
@@ -59,8 +63,12 @@ const dispatch = useDispatch()
           setModalVisible(!modalVisible);
         }}
       >
-        <View  style={{height:"45%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"black",alignItems:"center",justifyContent:"center",}}>
+        <View  style={{height:"25%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"white",alignItems:"center",justifyContent:"center",}}>
         <Text>Please check your inputs</Text>
+        
+        <TouchableOpacity onPress={()=>setModalVisible(false)} style={{backgroundColor:"tomato",marginTop:40,padding:10,paddingHorizontal:50}}>
+          <Text style={{color:"white"}}>Close</Text>
+        </TouchableOpacity>
         </View>
       </Modal>
 
@@ -81,8 +89,8 @@ const dispatch = useDispatch()
   <View>
   <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+        onChangeText={newEmail=>setEmail(newEmail)}
+        value={email}
         placeholder="Enter email"
         keyboardType="email-address"
       />
@@ -90,9 +98,9 @@ const dispatch = useDispatch()
   <View>
   <TextInput
         style={styles.input}
-        // onChangeText={onChangeNumber}
-        // value={number}
-        placeholder="Enter email"
+        onChangeText={newPass=>setPass(newPass)}
+        value={pass}
+        placeholder="Enter password"
         keyboardType="email-address"
       />
   </View>
@@ -103,7 +111,7 @@ const dispatch = useDispatch()
 </View>
 
 
-<TouchableOpacity onPress={()=>{dispatch(setAuth())}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
+<TouchableOpacity onPress={()=>{login()}}  style={{backgroundColor:"#358B9B",padding:15,alignItems:"center"
       ,marginLeft:40,marginRight:40,borderRadius:4}}>
         <Text style={{color:"white"}}>Login</Text>
       </TouchableOpacity>
