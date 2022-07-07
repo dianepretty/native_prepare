@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import  {setAuth} from "../features/counterSlice"
 
-import { UserContext } from '../../MyContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
