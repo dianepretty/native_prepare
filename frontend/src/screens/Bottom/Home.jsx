@@ -66,6 +66,7 @@ const Home = ({navigation}) => {
 {data.map((item,counter)=>(
    <View style={{flexDirection:"row"}} key={counter}>
 <Text style={{marginTop:18}}>{item.name}</Text>
+<Text style={{marginTop:18,marginLeft:40}}>{item.nationalId}</Text>
 
 <View>
 
