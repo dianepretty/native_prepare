@@ -5,12 +5,14 @@ import { CheckBox } from 'react-native-elements';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import {setisVoter} from "../../features/counterSlice"
+import { useSelector, useDispatch } from 'react-redux'
 
 const Voting = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [hold,setHold]=useState([]);
  const [data,setData]=useState([])
- let ct=0;
+  let dispatch=useDispatch();
 
  useEffect(() => {
   // Update the document title using the browser API
@@ -19,9 +21,19 @@ const Voting = ({navigation}) => {
     addData(res.data.data);
   })
   .catch(err=>{
-    console.log(err);
+    setModalVisible(true);
   })
-});
+})
+const vote=async(id,votes)=>{
+  let v=votes+1;
+  await axios.put(`http://192.168.1.70:4300/candidate/update/${id}`,{
+    votes:v
+  }).then(res=>{
+    navigation.navigate("Views");
+}).catch(err=>{
+console.log(err)
+})
+}
 
  const [task,setTask]=useState("");
 
@@ -62,11 +74,11 @@ const Voting = ({navigation}) => {
       <Text style={{marginLeft:20,fontWeight:"bold", fontSize:20,marginBottom:15}}>
       Candidates
     </Text>
-    <TouchableOpacity onPress={()=>navigation.navigation("Login")} >
+    {/* <TouchableOpacity onPress={()=>dispatch(setisVoter())} >
     <Text style={{color:"tomato",marginRight:20, fontSize:15,marginBottom:15}}>
       Done 
     </Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
    
       </View>
   
@@ -90,7 +102,7 @@ const Voting = ({navigation}) => {
     <Text style={{marginTop:18}}>{item.name}</Text>
     </View>
     <View style={{width:"50%"}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>vote(item._id,item.votes)}>
         <MaterialCommunityIcons style={{textAlign:"center",paddingTop:10,paddingBottom:10}} name="vote" size={24} color="black" />
         </TouchableOpacity>
     

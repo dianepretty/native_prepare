@@ -33,20 +33,19 @@ let storeData = async () => {
 
 const [email,setEmail]=useState("");
 const [pass,setPass]=useState("");
-const auth=useSelector(state=>state.counter.authorized);
 const dispatch = useDispatch()
 const [modalVisible, setModalVisible] = useState(false);
 
 const login=()=>{
   navigation.navigate("Voting")
-  // axios.post("http://10.0.2.2:4300/user/login",{
-  //   email:email,
-  //   password:pass
-  // }).then((res)=>{
-  //  dispatch(setAuth(true));
-  // }).catch(err=>{
-  //   setModalVisible(true);
-  // })
+  axios.post("http://192.168.8.100:4300/voter/login",{
+    email:email,
+    password:pass
+  }).then((res)=>{
+navigation.navigate("Voting")
+  }).catch(err=>{
+    setModalVisible(true);
+  })
 
 }
 

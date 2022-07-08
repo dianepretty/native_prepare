@@ -1,9 +1,12 @@
 import { StyleSheet, Text,Image, View,TextInput,TouchableOpacity,StatusBar,ImageBackground, } from 'react-native'
 import React, { useState } from 'react'
 import shape from "../images/shape.png"
+import { useSelector, useDispatch } from 'react-redux'
+import {setisVoter} from "../features/counterSlice";
 
 
 const Landing = ({navigation}) => {
+  const dispatch=useDispatch()
   return (
     <View style={styles.container} >
 <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
@@ -28,7 +31,11 @@ const Landing = ({navigation}) => {
 
       <TouchableOpacity onPress={()=>navigation.navigate("Login")} style={{backgroundColor:"#358B9B",padding:15,alignItems:"center",marginTop:40
       ,marginLeft:40,marginRight:40,borderRadius:4}}>
-        <Text style={{color:"white"}}>Get started</Text>
+        <Text style={{color:"white"}}>Admin</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>dispatch(setisVoter())} style={{backgroundColor:"#358B9B",padding:15,alignItems:"center",marginTop:40
+      ,marginLeft:40,marginRight:40,borderRadius:4}}>
+        <Text style={{color:"white"}}>Voter</Text>
       </TouchableOpacity>
      </View>
         </View> 

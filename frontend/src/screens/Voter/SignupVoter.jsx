@@ -13,20 +13,27 @@ const Signup = ({navigation}) => {
     const [adress,setAddress]=useState("");
     const [modalVisible, setModalVisible] = useState(false);
 const register=async()=>{
-//  await axios.post("http://10.0.2.2:4300/user/register",{
-//     email:email,
-//     name:name,
-//     password:pass
-//   })
-//   .then(res=>{
+  console.log("in here");
+ await axios.post("http://192.168.8.100:4300/voter/register",{
+  name: name,
+  email: email,
+  phone: phone,
+  nationalId: nationalId,
+  address: adress,
+  password: pass
 
-// navigation.navigate("Login")
+  })
+  .then(res=>{
+
+// navigation.navigate("Login");
+console.log(res);
 
 
-//   }).catch(err=>{
-//     setModalVisible(true)
+  }).catch(err=>{
+    // setModalVisible(true)
+    console.log(err);
 
-//   })
+  })
 }
   return (
     <View>

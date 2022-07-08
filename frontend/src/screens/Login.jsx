@@ -38,14 +38,14 @@ const dispatch = useDispatch()
 const [modalVisible, setModalVisible] = useState(false);
 
 const login=()=>{
-  // axios.post("http://10.0.2.2:4300/user/login",{
-  //   email:email,
-  //   password:pass
-  // }).then((res)=>{
-  //  dispatch(setAuth(true));
-  // }).catch(err=>{
-  //   setModalVisible(true);
-  // })
+  axios.post("http://10.0.2.2:4300/user/login",{
+    email:email,
+    password:pass
+  }).then((res)=>{
+   dispatch(setAuth(true));
+  }).catch(err=>{
+    setModalVisible(true);
+  })
 
   
  dispatch(setAuth(true));

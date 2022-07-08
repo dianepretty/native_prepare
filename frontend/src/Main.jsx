@@ -6,13 +6,11 @@ import AuthNavigator from './navigation/Authentication';
 import StackNavigator from './navigation/StackNavigator';
 export default function Main() {
     const auth=useSelector(state=>state.counter.authorized);
-    const  voterAuthorized=useSelector(state=>state.counter.voterAuthorized);
+    const  isVoter=useSelector(state=>state.counter.isVoter);
   return (
 <NavigationContainer>
-  
-  {/* {auth?<MainContainer></MainContainer>:<AuthNavigator></AuthNavigator>} */}
 
-  {voterAuthorized?<StackNavigator></StackNavigator>:null}
+  {isVoter?<StackNavigator></StackNavigator>:auth?<MainContainer></MainContainer>:<AuthNavigator></AuthNavigator>}
   
       
         </NavigationContainer>
