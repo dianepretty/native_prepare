@@ -6,6 +6,8 @@ import axios from 'axios';
 const Signup = ({navigation}) => {
 
     const [email,setEmail]=useState("");
+    const [phone,setPhone]=useState("");
+    const [nationalId,setNationalId]=useState("");
     const [pass,setPass]=useState("");
     const [name,setName]=useState("");
     const [modalVisible, setModalVisible] = useState(false);

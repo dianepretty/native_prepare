@@ -5,8 +5,8 @@ const CandidateSchema = new Schema({
     name: { type: String, required: true },
     nationalId: { type: Number, required: true },
     phoneNumber: { type: String, required: true },
-    positionId: [{ type: Schema.Types.ObjectId, ref: 'Positions' }]
+    votes: { type: Number, required: true, default: 0 }
 })
 
 const Candidate = mongoose.model("Candidates", CandidateSchema);
-module.exports = Candidate;
+module.exports = Candidate
