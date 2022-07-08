@@ -37,7 +37,7 @@ const MainContainer = () => {
             }
             return <Ionicons name={iconName} size={size} color={color}></Ionicons>
         },
-        tabBarActiveTintColor: "green",
+        tabBarActiveTintColor: "#358B9B",
         tabBarInactiveTintColor: "black",
         headerShown: true,
         tabBarStyle: {
@@ -53,7 +53,7 @@ const MainContainer = () => {
   
     >
 
-        <Tab.Screen name={homeName} component ={Home}/>
+        <Tab.Screen name={homeName} options={{headerShown:false}} component ={Home}/>
         <Tab.Screen name={detailsName} component ={Details}/>
         <Tab.Screen name={settingsName} component ={Settings}/>
 

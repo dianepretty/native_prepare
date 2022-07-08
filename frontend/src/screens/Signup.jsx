@@ -10,16 +10,16 @@ const Signup = ({navigation}) => {
     const [name,setName]=useState("");
     const [modalVisible, setModalVisible] = useState(false);
 const register=async()=>{
-  console.log("in register")
  await axios.post("http://10.0.2.2:4300/user/register",{
     email:email,
     name:name,
     password:pass
   })
   .then(res=>{
- if(res.data.message=="created"){
 
- }
+navigation.navigate("Login")
+
+
   }).catch(err=>{
     setModalVisible(true)
 
@@ -37,8 +37,12 @@ const register=async()=>{
      }}
    >
      <View  style={{height:"25%",marginTop:"30%" , marginLeft:20,marginRight:20 , backgroundColor:"white",alignItems:"center",justifyContent:"center",}}>
-     <Text>Please check your inputs</Text>
+     <Text>Double check your inputs, or maybe the email is taken</Text>
+     <TouchableOpacity onPress={()=>setModalVisible(false)} style={{backgroundColor:"tomato",marginTop:40,padding:10,paddingHorizontal:50}}>
+          <Text style={{color:"white"}}>Close</Text>
+        </TouchableOpacity>
      </View>
+   
    </Modal>
 
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
@@ -80,7 +84,7 @@ const register=async()=>{
         onChangeText={newPass=>setPass(newPass)}
         value={pass}
         placeholder="Enter password"
-       
+        secureTextEntry={true}
       />
   </View>
 

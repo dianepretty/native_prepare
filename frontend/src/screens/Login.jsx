@@ -102,6 +102,7 @@ const login=()=>{
         value={pass}
         placeholder="Enter password"
         keyboardType="email-address"
+        secureTextEntry={true}
       />
   </View>
 
