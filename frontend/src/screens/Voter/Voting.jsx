@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { CheckBox } from 'react-native-elements';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-const Home = ({navigation}) => {
+const Voting = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [hold,setHold]=useState([]);
  const [data,setData]=useState([])
@@ -57,11 +58,16 @@ const Home = ({navigation}) => {
    
 
     <View style={styles.box} >
-      <View style={{flexDirection:"row"}}>
+      <View style={{flexDirection:"row",justifyContent:"space-between"}}>
       <Text style={{marginLeft:20,fontWeight:"bold", fontSize:20,marginBottom:15}}>
       Candidates
     </Text>
-  
+    <TouchableOpacity onPress={()=>navigation.navigation("Login")} >
+    <Text style={{color:"tomato",marginRight:20, fontSize:15,marginBottom:15}}>
+      Done 
+    </Text>
+    </TouchableOpacity>
+   
       </View>
   
     <View style={{alignItems:"center",justifyContent:"center",marginBottom:40}}>
@@ -71,7 +77,7 @@ const Home = ({navigation}) => {
 <Text style={{fontWeight:"bold"}} >Names</Text>
 </View>
 <View style={{width:"50%"}}>
-<Text style={{textAlign:"center",fontWeight:"bold"}}>Votes</Text>
+<Text style={{textAlign:"center",fontWeight:"bold"}}>Action</Text>
 </View>
 </View>
     <ScrollView  >
@@ -84,10 +90,13 @@ const Home = ({navigation}) => {
     <Text style={{marginTop:18}}>{item.name}</Text>
     </View>
     <View style={{width:"50%"}}>
-    <Text  style={{marginTop:18,textAlign:"center"}}>  
-   
-     {item.votes}</Text>
+        <TouchableOpacity>
+        <MaterialCommunityIcons style={{textAlign:"center",paddingTop:10,paddingBottom:10}} name="vote" size={24} color="black" />
+        </TouchableOpacity>
+    
     </View>
+
+
 
 
 
@@ -109,8 +118,7 @@ const Home = ({navigation}) => {
   )
 }
 
-export default Home
-
+export default Voting
 const styles = StyleSheet.create({
 
     container:{

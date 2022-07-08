@@ -25,8 +25,8 @@ router.post("/register", (req, res) => {
     let newCandidate = new Candidate({
         name: req.body.name,
         nationalId: req.body.nationalId,
-        phoneNumber: req.body.phoneNumber,
-        positionId: req.body.positionId
+        gender: req.body.gender,
+        mission: req.body.mission
 
     })
 

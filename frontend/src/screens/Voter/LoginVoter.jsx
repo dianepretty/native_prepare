@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useContext } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
-import  {setAuth} from "../features/counterSlice"
+import  {setAuth} from "../../features/counterSlice"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
@@ -38,6 +38,7 @@ const dispatch = useDispatch()
 const [modalVisible, setModalVisible] = useState(false);
 
 const login=()=>{
+  navigation.navigate("Voting")
   // axios.post("http://10.0.2.2:4300/user/login",{
   //   email:email,
   //   password:pass
@@ -47,8 +48,6 @@ const login=()=>{
   //   setModalVisible(true);
   // })
 
-  
- dispatch(setAuth(true));
 }
 
   
@@ -77,13 +76,16 @@ const login=()=>{
 
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "transparent" translucent = {true}/>
       <View>
-    <Image source={require('../images/shape.png')} style={{width:270,margin:0}} resizeMode="cover">
+    <Image source={require('../../images/shape.png')} style={{width:270,margin:0}} resizeMode="cover">
+
+      
 
 </Image>
       </View>
-      <Text style={{fontWeight:"bold",fontSize:15, textAlign:"center",marginTop:50}}>Welcome back</Text>
+      <Text style={{fontWeight:"bold",fontSize:15, textAlign:"center",marginTop:50}}>Vote for your leaders</Text>
+      <Text style={{textAlign:"center",marginTop:20, lineHeight:25, color:"gray",marginLeft:20,marginRight:20,marginBottom:10}}> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime doloremque eveniet illo odio ex ratione minima mollitia! Accusamus quos ad ex. Commodi ut totam a recusandae corporis deserunt, ad veritatis? </Text>
       <View style={{alignItems:"center",marginTop:15}}>
-<Image source={require('../images/log.png')} resizeMode="contain" style={{width:170}}  ></Image>
+
 </View>
 
 
